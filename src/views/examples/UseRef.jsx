@@ -5,7 +5,7 @@ import SectionTitle from '../../components/layout/SectionTitle';
 const merge = (str1, str2) => {
     let message = ''
     for (const index in str1) {
-        message += str1[index] + str2[index]
+        message += str1[index] + (str2[index] || "")
     }
     return message
 }
