@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import PageTitle from '../../components/layout/PageTitle'
 import SectionTitle from '../../components/layout/SectionTitle'
+import UseCallBackButtons from './UseCallbackButtons'
 
 const UseCallback = (props) => {
     const [count, setCount] = useState(0)
 
-    function inc(delta) {
-        setCount(count + delta);
-    }
+    const inc = useCallback((delta) => {
+        setCount(curr => curr + delta);
+    }, [setCount])
+
+    // Pra que esteja, de fato, cacheada é necessário adicionar o React.memo no componente que está recebendo a função.
 
     return (
         <div className="UseCallback">
@@ -19,24 +22,7 @@ const UseCallback = (props) => {
             <div className="center">
                 <span className="text">{ count }</span>
 
-                <div>
-                    <button 
-                    type='button' 
-                    className="btn"
-                    onClick={() => inc(+6)}
-                    >+6</button>
-                    <button 
-                    type='button' 
-                    className="btn"
-                    onClick={() => inc(+12)}
-                    >+12</button>
-                    <button 
-                    type='button' 
-                    className="btn"
-                    onClick={() => inc(+18)}
-                    >+18</button>
-                </div>
-
+                <UseCallBackButtons inc={inc}/>
             </div>
         </div>
     )
